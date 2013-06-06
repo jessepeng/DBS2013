@@ -1,6 +1,8 @@
 package org.fu.berlin.dbs2013;
 
 import java.io.IOException;
+import java.io.PrintStream;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,8 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		PrintStream responseStream = new PrintStream(response.getOutputStream());
+		responseStream.println("Hallo! Dies ist das Admin-Servlet.");
 	}
 
 	/**
