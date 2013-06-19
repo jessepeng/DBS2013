@@ -38,9 +38,18 @@ public class AutoCompleteServlet extends HttpServlet {
 			
 			List<String> suggestions = db.getAutoCompleteSuggestions(suggest);
 			
+			StringBuilder responseString = new StringBuilder("[");
+			
 			for (String suggestion : suggestions) {
-				responseStream.println(suggestion);
+				responseString.append("\"" + suggestion + "\"").append(",");
 			}
+			
+			responseString.deleteCharAt(responseString.length() - 1).append("]");
+			
+			response.setContentType("application/json");
+			response.setContentLength(responseString.length());
+			response.setCharacterEncoding("ISO-8859-1");
+			responseStream.println(responseString);
 		}
 	}
 

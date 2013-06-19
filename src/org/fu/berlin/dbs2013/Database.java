@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.fu.berlin.dbs2013.data.Ort;
+import org.fu.berlin.dbs2013.data.Wettermessung;
 
 import com.mysql.jdbc.Driver;
 
@@ -160,6 +161,10 @@ public class Database {
 		return result;
 		
 	}
+	
+	public void performUpdateQuery(String query) {
+		
+	}
 
 	/**
 	 * Gibt eine Liste von Orten für Autocomplete zurück.
@@ -182,18 +187,26 @@ public class Database {
 			int plz = Integer.valueOf(from);
 			int plzTo = (plz + (int)(Math.pow(10, 5 - length)));
 			
-			queryString.append("PLZ >= ").append(plz).append(" AND PLZ <= ").append(plzTo).append(" ORDER BY name");
+			queryString.append("PLZ >= ").append(plz).append(" AND PLZ <= ").append(plzTo).append(" ORDER BY plz");
 		} else {
 			// name
-			queryString.append("name LIKE ").append(from).append("%");
+			queryString.append("name LIKE '").append(from).append("%' ORDER BY name");
 		}
 		
 		List<Ort> suggestions = performSelectQuery(queryString.toString(), Ort.class);
 		
 		for (Ort ort : suggestions) {
-			result.add(ort.getPlz() + " - " + ort.getName());
+			result.add(ort.getName() + " (" + ort.getPlz() + ")");
 		}
 		
 		return result;
+	}
+	
+	public Wettermessung getWettermessung(String from) {
+		String queryString = "SELECT * FROM Wettermessung m, Ort o WHERE o.plz = " + from + " AND o.hat_station = m.gemessen_von ORDER BY m.datum";
+		
+		List<Wettermessung> messungen = performSelectQuery(queryString, Wettermessung.class);
+		
+		return messungen.get(messungen.size() - 1);
 	}
 }
