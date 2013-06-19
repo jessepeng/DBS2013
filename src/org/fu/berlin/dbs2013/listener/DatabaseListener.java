@@ -7,6 +7,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.catalina.Lifecycle;
+import org.apache.catalina.LifecycleEvent;
+import org.apache.catalina.LifecycleListener;
 import org.fu.berlin.dbs2013.Database;
 
 /**
@@ -14,7 +17,7 @@ import org.fu.berlin.dbs2013.Database;
  *
  */
 @WebListener
-public class DatabaseListener implements ServletContextListener {
+public class DatabaseListener implements ServletContextListener, LifecycleListener {
 
     /**
      * Default constructor. 
@@ -34,8 +37,16 @@ public class DatabaseListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0) {
-    	Logger.getGlobal().log(Level.INFO, "Shutting down the database.");
-		Database.destroyInstance();
+//    	Logger.getGlobal().log(Level.INFO, "Shutting down the database.");
+//		Database.destroyInstance();
+	}
+
+	@Override
+	public void lifecycleEvent(LifecycleEvent arg0) {
+		if (arg0.getType().equals(Lifecycle.BEFORE_STOP_EVENT)) {
+			Logger.getGlobal().log(Level.INFO, "Shutting down the database.");
+			Database.destroyInstance();
+		}
 	}
 	
 }

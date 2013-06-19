@@ -58,6 +58,9 @@ public class Database {
 		}
 	}
 	
+	/**
+	 * Erstellt eine neue Instanz falls keine vorhanden, gibt sie aber nicht zurück.
+	 */
 	public synchronized static void createInstance() {
 		if (_instance == null) {
 			_instance = new Database();
