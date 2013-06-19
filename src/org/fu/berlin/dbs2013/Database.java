@@ -1,5 +1,6 @@
 package org.fu.berlin.dbs2013;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
@@ -162,8 +163,57 @@ public class Database {
 		
 	}
 	
-	public void performUpdateQuery(String query) {
+	/**
+	 * Fügt ein geändertes Objekt wieder in die Datenbank ein.
+	 * @param object
+	 * 				Das geänderte Objekt. Es werden alle Felder mit ihrem Namen in die Tabelle eingetragen. Daher müssen alle Felder auch als Spalten in der Tabelle vorhanden sein.
+	 * @param table
+	 * 				Die Tabelle, in die das Objekt eingefügt werden soll.
+	 * @param where
+	 * 				Eine where-Klausel, mit dem das Objekt eindeutig beschrieben werden kann.
+	 * @param clazz
+	 * 				Die Klasse, um die es sich handelt.
+	 * @return
+	 */
+	public <T> boolean performUpdateQuery(T object, String table, String where) {
+		Connection connection = getDatabaseConnection();
+		Statement statement = null;
+		boolean success = false;
+		Class<?> clazz = object.getClass();
 		
+		StringBuilder queryString = new StringBuilder("UPDATE ").append(table).append(" SET ");
+		try {
+			statement = connection.createStatement();
+			for (Field field : clazz.getDeclaredFields()) {
+				String fieldName = field.getName();
+				String getMethodName = "get" + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+				try {
+					Method getMethod = clazz.getMethod(getMethodName);
+					Object fieldValue = getMethod.invoke(object);
+					if (fieldValue != null) {
+						queryString.append(fieldName).append("=");
+						if (fieldValue instanceof String) queryString.append("'");
+						queryString.append(fieldValue.toString());
+						if (fieldValue instanceof String) queryString.append("'");
+						queryString.append(", ");
+					}
+				} catch (IllegalArgumentException | NoSuchMethodException |  IllegalAccessException | InvocationTargetException e) {
+					Logger.getGlobal().log(Level.WARNING, "Couldn't get value of field " + fieldName + " from Object " + clazz.getName());
+				}
+			}
+			
+			queryString.deleteCharAt(queryString.length() - 2).append("WHERE ").append(where);
+			
+			success = statement.execute(queryString.toString());
+		} catch (SQLException | SecurityException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (statement != null) statement.close();
+			} catch (SQLException e) { }
+		}
+		
+		return success;
 	}
 
 	/**
@@ -196,13 +246,13 @@ public class Database {
 		List<Ort> suggestions = performSelectQuery(queryString.toString(), Ort.class);
 		
 		for (Ort ort : suggestions) {
-			result.add(ort.getName() + " (" + ort.getPlz() + ")");
+			result.add(ort.getName() + " (" + ort.getPLZ() + ")");
 		}
 		
 		return result;
 	}
 	
-	public Wettermessung getWettermessung(String from) {
+	public Wettermessung getLastWettermessung(String from) {
 		String queryString = "SELECT * FROM Wettermessung m, Ort o WHERE o.plz = " + from + " AND o.hat_station = m.gemessen_von ORDER BY m.datum";
 		
 		List<Wettermessung> messungen = performSelectQuery(queryString, Wettermessung.class);
