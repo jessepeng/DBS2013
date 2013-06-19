@@ -37,9 +37,10 @@ public class AdminUtils {
 			}
 			
 			orte.get(i).setS_id(tempS_id);
+			db.performUpdateQuery(orte.get(i),"Ort", "o_id=="+orte.get(i).getO_id());
 		}
 		
-		db.performUpdateQuery(orte, Ort, where)
+		
 		return success;
 	}
 	
