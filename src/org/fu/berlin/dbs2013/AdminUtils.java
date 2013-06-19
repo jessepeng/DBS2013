@@ -23,7 +23,7 @@ public class AdminUtils {
 		List<Ort> orte = db.performSelectQuery("SELECT * FROM Ort", Ort.class);
 		List<Wetterstation> stationen = db.performSelectQuery("SELECT s_id, geo_breite, geo_laenge FROM Wetterstation", Wetterstation.class); 
 		
-		for (int i=0;i<orte.size();i++){
+		for (int i=29040;i<orte.size();i++){
 			/** 
 			 * tempS_id beinhaltet die S_ID der Station mit der aktuell geringsten Entfernung zum aktuellen Ort und wird mit der nullten S_ID initialisiert
 			 * tempOrt ist ein LatLng Objekt des aktuellen Ortes für die Abstandsberechnung

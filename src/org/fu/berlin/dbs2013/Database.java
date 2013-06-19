@@ -198,9 +198,9 @@ public class Database {
 					Object fieldValue = getMethod.invoke(object);
 					if (fieldValue != null) {
 						queryString.append(fieldName).append("=");
-						if (fieldValue instanceof String) queryString.append("'");
+						if (fieldValue instanceof String) queryString.append("\"");
 						queryString.append(fieldValue.toString());
-						if (fieldValue instanceof String) queryString.append("'");
+						if (fieldValue instanceof String) queryString.append("\"");
 						queryString.append(", ");
 					}
 				} catch (IllegalArgumentException | NoSuchMethodException |  IllegalAccessException | InvocationTargetException e) {
