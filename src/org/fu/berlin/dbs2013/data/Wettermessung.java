@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Wettermessung {
 
-	private Double s_id;
+	private Double Stations_ID;
 	private Date datum;
 	private Double min_temp;
 	private Double durchschnitt_temp;
@@ -20,12 +20,12 @@ public class Wettermessung {
 	public Wettermessung() {
 	}
 
-	public Double getS_id() {
-		return s_id;
+	public Double getStations_ID() {
+		return Stations_ID;
 	}
 
-	public void setS_id(Double s_id) {
-		this.s_id = s_id;
+	public void setStations_ID(Double s_id) {
+		this.Stations_ID = s_id;
 	}
 
 	public Date getDatum() {

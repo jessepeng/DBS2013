@@ -11,7 +11,7 @@
 		response.sendRedirect(request.getContextPath() + "/index.jsp");
 	}
 %>
-<div class="ontainer">
+<div class="container">
 <h1>DBS 2013 - Wetterdaten</h1>
 <p class="lead">Ausgew&auml;hlte Wetterstation: <%= ort %></p>
 <p>Wetterdaten</p>

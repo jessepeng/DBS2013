@@ -286,7 +286,7 @@ public class Database {
 	}
 	
 	public Wettermessung getLastWettermessung(String from) {
-		String queryString = "SELECT * FROM Wettermessung m, Ort o WHERE o.plz = " + from + " AND o.hat_station = m.gemessen_von ORDER BY m.datum";
+		String queryString = "SELECT * FROM Wettermessung m, Ort o WHERE o.name LIKE '" + from + "' AND o.s_id = m.Stations_ID ORDER BY m.datum";
 		
 		List<Wettermessung> messungen = performSelectQuery(queryString, Wettermessung.class);
 		
