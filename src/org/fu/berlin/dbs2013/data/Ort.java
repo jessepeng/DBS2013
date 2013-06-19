@@ -7,6 +7,7 @@ public class Ort {
 	private String name;
 	private double geo_breite;
 	private double geo_laenge;
+	private int s_id;
 
 	public Ort() {
 
@@ -57,6 +58,14 @@ public class Ort {
 
 	public void setGeo_laenge(Double geo_laenge) {
 		this.geo_laenge = geo_laenge;
+	}
+
+	public int getS_id() {
+		return s_id;
+	}
+
+	public void setS_id(Integer s_id) {
+		this.s_id = s_id;
 	}
 
 }
