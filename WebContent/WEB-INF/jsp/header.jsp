@@ -5,9 +5,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>DBS 2013 - Wetterdaten</title>
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet" />
-<script src="js/jquery-2.0.2.min.js" type="text/javascript"></script>
-<script src="js/bootstrap.js" type="text/javascript"></script>
+<link href="<%= config.getServletContext().getContextPath() %>/css/bootstrap.css" type="text/css" rel="stylesheet" />
+<script src="<%= config.getServletContext().getContextPath() %>/js/jquery-2.0.2.min.js" type="text/javascript"></script>
+<script src="<%= config.getServletContext().getContextPath() %>/js/bootstrap.js" type="text/javascript"></script>
 <style>
 body {
 	padding-top: 60px;
@@ -17,7 +17,7 @@ body {
 $(document).ready(function() {
 	$('.typeahead').typeahead({
 		source: function(query, process) {
-			return $.get('/DBS2013/AutoCompleteServlet', { suggest: query }, function (data) {
+			return $.get('<%= config.getServletContext().getContextPath() %>/AutoCompleteServlet', { suggest: query }, function (data) {
 				process(data);
 			});
 		}
@@ -29,7 +29,7 @@ $(document).ready(function() {
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 	<div class="container">
-	<a class="brand" href="index.jsp">DBS 2013</a>
+	<a class="brand" href="<%= config.getServletContext().getContextPath() %>/index.jsp">DBS 2013</a>
 	</div>
 	</div>
 </div>

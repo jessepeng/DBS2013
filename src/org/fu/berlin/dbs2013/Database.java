@@ -149,8 +149,10 @@ public class Database {
 					result.add(resultObject);
 				} while (results.next());
 			} 
-		}
-		 catch (SQLException | InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException  e) {
+		} catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e) {
+			destroyInstance();
+			createInstance();
+		} catch (SQLException | InstantiationException | IllegalAccessException | IllegalArgumentException | SecurityException  e) {
 			e.printStackTrace();
 		} finally {
 			try {
@@ -205,6 +207,10 @@ public class Database {
 			queryString.deleteCharAt(queryString.length() - 2).append("WHERE ").append(where);
 			
 			success = statement.execute(queryString.toString());
+			
+		} catch (com.mysql.jdbc.exceptions.jdbc4.CommunicationsException e) {
+			destroyInstance();
+			createInstance();
 		} catch (SQLException | SecurityException e) {
 			e.printStackTrace();
 		} finally {
@@ -226,7 +232,7 @@ public class Database {
 	public List<String> getAutoCompleteSuggestions(String from) {
 		List<String> result = new ArrayList<String>();
 		
-		StringBuilder queryString = new StringBuilder("SELECT name, plz FROM Ort WHERE ");
+		StringBuilder queryString = new StringBuilder("SELECT name, PLZ FROM Ort WHERE ");
 		
 		if (from.matches("[0-9]*")) {
 			// numeric only

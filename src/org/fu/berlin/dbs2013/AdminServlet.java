@@ -1,7 +1,6 @@
 package org.fu.berlin.dbs2013;
 
 import java.io.IOException;
-import java.io.PrintStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +26,22 @@ public class AdminServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		PrintStream responseStream = new PrintStream(response.getOutputStream());
-		responseStream.println("Hallo! Dies ist das Admin-Servlet.");
+		String command = request.getParameter("command");
+		boolean success = false;
+		if (command != null) {
+			switch (command) {
+			case "connectStations":
+				success = AdminUtils.connectOrtWithWetterstation();
+				break;
+			}
+		}
+		response.sendRedirect(getServletContext().getContextPath() + "/admin/index.jsp?success" + success);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }
