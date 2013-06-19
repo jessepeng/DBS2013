@@ -226,6 +226,29 @@ public class Database {
 		return success;
 	}
 
+	public <T> T perfomSimpleSelectQuery(String queryString, Class<T> clazz) {
+		Connection connection = getDatabaseConnection();
+		Statement statement = null;
+		ResultSet results = null;
+		T result = null;
+		
+		try {
+			statement = connection.createStatement();
+			results = statement.executeQuery(queryString);
+			
+			if (results.first()) {
+				Object sqlResult = results.getObject(0);
+				if (sqlResult.getClass().equals(clazz)) {
+					result = clazz.cast(sqlResult);
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * Gibt eine Liste von Orten für Autocomplete zurück.
 	 * @param from
@@ -268,5 +291,13 @@ public class Database {
 		List<Wettermessung> messungen = performSelectQuery(queryString, Wettermessung.class);
 		
 		return messungen.get(messungen.size() - 1);
+	}
+	
+	public double getAverageSunHours(int s_id) {
+		String queryString = "SELECT AVG(sonne) FROM Wettermessung WHERE s_id = " + s_id;
+		
+		Double result = perfomSimpleSelectQuery(queryString, Double.class);
+		
+		return result;
 	}
 }
