@@ -4,27 +4,27 @@ import java.util.Date;
 
 public class Wettermessung {
 
-	private double s_id;
+	private Double s_id;
 	private Date datum;
-	private double min_temp;
-	private double durchschnitt_temp;
-	private double max_temp;
-	private double relative_feuchte;
-	private double mittel_wind;
-	private double max_wind;
-	private double sonne;
-	private double bedeckung;
-	private double niederschlag;
-	private double luftdruck;
+	private Double min_temp;
+	private Double durchschnitt_temp;
+	private Double max_temp;
+	private Double relative_feuchte;
+	private Double mittel_wind;
+	private Double max_wind;
+	private Double sonne;
+	private Double bedeckung;
+	private Double niederschlag;
+	private Double luftdruck;
 
 	public Wettermessung() {
 	}
 
-	public double getS_id() {
+	public Double getS_id() {
 		return s_id;
 	}
 
-	public void setS_id(double s_id) {
+	public void setS_id(Double s_id) {
 		this.s_id = s_id;
 	}
 
@@ -36,84 +36,85 @@ public class Wettermessung {
 		this.datum = datum;
 	}
 
-	public double getMin_temp() {
+	public Double getMin_temp() {
 		return min_temp;
 	}
 
-	public void setMin_temp(double min_temp) {
+	public void setMin_temp(Double min_temp) {
 		this.min_temp = min_temp;
 	}
 
-	public double getDurchschnitt_temp() {
+	public Double getDurchschnitt_temp() {
 		return durchschnitt_temp;
 	}
 
-	public void setDurchschnitt_temp(double durchschnitt_temp) {
+	public void setDurchschnitt_temp(Double durchschnitt_temp) {
 		this.durchschnitt_temp = durchschnitt_temp;
 	}
 
-	public double getMax_temp() {
+	public Double getMax_temp() {
 		return max_temp;
 	}
 
-	public void setMax_temp(double max_temp) {
+	public void setMax_temp(Double max_temp) {
 		this.max_temp = max_temp;
 	}
 
-	public double getRelative_feuchte() {
+	public Double getRelative_feuchte() {
 		return relative_feuchte;
 	}
 
-	public void setRelative_feuchte(double relative_feuchte) {
+	public void setRelative_feuchte(Double relative_feuchte) {
 		this.relative_feuchte = relative_feuchte;
 	}
 
-	public double getMittel_wind() {
+	public Double getMittel_wind() {
 		return mittel_wind;
 	}
 
-	public void setMittel_wind(double mittel_wind) {
+	public void setMittel_wind(Double mittel_wind) {
 		this.mittel_wind = mittel_wind;
 	}
 
-	public double getMax_wind() {
+	public Double getMax_wind() {
 		return max_wind;
 	}
 
-	public void setMax_wind(double max_wind) {
+	public void setMax_wind(Double max_wind) {
 		this.max_wind = max_wind;
 	}
 
-	public double getSonne() {
+	public Double getSonne() {
 		return sonne;
 	}
 
-	public void setSonne(double sonne) {
+	public void setSonne(Double sonne) {
 		this.sonne = sonne;
 	}
 
-	public double getBedeckung() {
+	public Double getBedeckung() {
 		return bedeckung;
 	}
 
-	public void setBedeckung(double bedeckung) {
+	public void setBedeckung(Double bedeckung) {
 		this.bedeckung = bedeckung;
 	}
 
-	public double getNiederschlag() {
+	public Double getNiederschlag() {
 		return niederschlag;
 	}
 
-	public void setNiederschlag(double niederschlag) {
+	public void setNiederschlag(Double niederschlag) {
 		this.niederschlag = niederschlag;
 	}
 
-	public double getLuftdruck() {
+	public Double getLuftdruck() {
 		return luftdruck;
 	}
 
-	public void setLuftdruck(double luftdruck) {
+	public void setLuftdruck(Double luftdruck) {
 		this.luftdruck = luftdruck;
 	}
+
 
 }
