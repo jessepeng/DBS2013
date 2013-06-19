@@ -41,6 +41,7 @@ public class Database {
 			_databaseDriver = new Driver();
 			_databaseConnection = DriverManager.getConnection(DATABASE_URL,
 					DATABASE_USER, DATABASE_PW);
+			_databaseConnection.setAutoCommit(true);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
