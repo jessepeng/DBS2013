@@ -17,6 +17,7 @@ import java.util.logging.Logger;
 
 import org.fu.berlin.dbs2013.data.Ort;
 import org.fu.berlin.dbs2013.data.Wettermessung;
+import org.fu.berlin.dbs2013.data.Wetterstation;
 
 import com.mysql.jdbc.Driver;
 
@@ -293,10 +294,29 @@ public class Database {
 		return messungen.get(messungen.size() - 1);
 	}
 	
+	//warum hier s_id?
 	public double getAverageSunHours(int s_id) {
 		String queryString = "SELECT AVG(sonne) FROM Wettermessung WHERE Stations_ID = " + s_id;
 		
 		Double result = perfomSimpleSelectQuery(queryString, Double.class);
+		
+		return result;
+	}
+	
+	public Wetterstation getMaxMessungenStation(){
+		
+		String queryString = "SELECT o.name, MAX(w.max_temp) FROM Ort o, Wettermessung w";
+		
+		Wetterstation result = perfomSimpleSelectQuery(queryString, Wetterstation.class);
+		
+		return result;
+		
+	}
+	
+	public Wetterstation getMatchedStation(String from){
+		String queryString = "SELECT s.* FROM Ort o, Wetterstation w WHERE o.name LIKE '" + from + "' AND o.s_id=w.s_id";
+		
+		Wetterstation result = perfomSimpleSelectQuery(queryString, Wetterstation.class);
 		
 		return result;
 	}
