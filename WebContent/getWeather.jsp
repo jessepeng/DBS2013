@@ -14,7 +14,7 @@
 <div class="container">
 <h1>DBS 2013 - Wetterdaten</h1>
 <p class="lead">Ausgew&auml;hlte Wetterstation: <%= ort %></p>
-<p>Wetterdaten</p>
+<p>Wetterdaten vom Datum <%= messung.getDatum() %></p>
 <table class="table">
 <tr><th>Attribut</th><th>Wert</th></tr>
 <tr><td>Mindestemperatur</td><td><%= messung.getMin_temp() %></td>
@@ -28,5 +28,9 @@
 <tr><td>Niederschlag</td><td><%= messung.getBedeckung() %></td>
 <tr><td>Luftdruck</td><td><%= messung.getLuftdruck() %></td>
 </table>
+<p class="lead">Weitere Queries mit dieser Wetterstation:</p>
+<ul>
+<li><a href="<%= request.getContextPath() %>/getSunHours.jsp?id=<%= messung.getStations_ID() %>">Durchschnittliche Sonnenstunden</a></li>
+</ul>
 </div>
 <%@ include file="WEB-INF/jsp/footer.jsp" %>

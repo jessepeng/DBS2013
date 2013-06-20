@@ -237,7 +237,7 @@ public class Database {
 			results = statement.executeQuery(queryString);
 			
 			if (results.first()) {
-				Object sqlResult = results.getObject(0);
+				Object sqlResult = results.getObject(1);
 				if (sqlResult.getClass().equals(clazz)) {
 					result = clazz.cast(sqlResult);
 				}
@@ -294,7 +294,7 @@ public class Database {
 	}
 	
 	public double getAverageSunHours(int s_id) {
-		String queryString = "SELECT AVG(sonne) FROM Wettermessung WHERE s_id = " + s_id;
+		String queryString = "SELECT AVG(sonne) FROM Wettermessung WHERE Stations_ID = " + s_id;
 		
 		Double result = perfomSimpleSelectQuery(queryString, Double.class);
 		
